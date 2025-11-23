@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-
 export default function Home() {
   return (
     <div>
@@ -10,7 +9,7 @@ export default function Home() {
         </div>
         <div className="mt-10 flex items-center">
           <select className="mr-10 p-2 bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono cursor-pointer">
-            <option value="fineshed">Fineshed</option>
+            <option value="fineshed">Finished</option>
             <option value="progress">In Progress</option>
             <option value="paused">Paused</option>
             <option value="think">Thinking</option>
