@@ -2,7 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Projects() {
+import Header from '../../../components/header';
+
+export default function AddProject() {
   const [techInput, setTechInput] = useState("");
   const [technologies, setTechnologies] = useState<string[]>([]);
 
@@ -20,9 +22,10 @@ export default function Projects() {
 
   return (
     <div>
+      <Header/>
       <div className="w-full h-full flex justify-between mt-10">
         <div className="ml-10">
-          <Link href="/">
+          <Link href="/projects/myprojects">
             <img src="/images/assets/back.png" />
           </Link>
 
