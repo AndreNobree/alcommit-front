@@ -10,7 +10,7 @@ export default function AddProject() {
   const [name, setName] = useState("");
   const [repository, setRepository] = useState("");
   const [location, setLocation] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("In Progress");
 
 
 //adiciona tecnologia a tabela
@@ -40,7 +40,8 @@ export default function AddProject() {
           name,
           status,
           repository,
-          location
+          location,
+          technologies
         }),
       });
 
@@ -160,8 +161,8 @@ export default function AddProject() {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
               className="w-100 mr-10 p-2 bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono cursor-pointer mt-2">
-                <option value="finished">Finished</option>
                 <option value="progress">In Progress</option>
+                <option value="finished">Finished</option>
                 <option value="paused">Paused</option>
                 <option value="thinking">Thinking</option>
                 <option value="canceled">Canceled</option>
