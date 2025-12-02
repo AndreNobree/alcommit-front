@@ -64,6 +64,13 @@ export default function Home() {
         >
           Login
         </button>
+
+        <div>
+          <p className="mt-5 text-green-500">Don't have an account? </p>
+          <a href="/register" className="text-green-500 underline">
+            Register
+          </a>
+        </div>
       </div>
     </div>
   );

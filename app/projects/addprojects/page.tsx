@@ -7,6 +7,11 @@ import Header from '../../../components/header';
 export default function AddProject() {
   const [techInput, setTechInput] = useState("");
   const [technologies, setTechnologies] = useState<string[]>([]);
+  const [name, setName] = useState("");
+  const [repository, setRepository] = useState("");
+  const [location, setLocation] = useState("");
+  const [status, setStatus] = useState("");
+
 
 //adiciona tecnologia a tabela
   const addTechnology = () => {
@@ -20,6 +25,45 @@ export default function AddProject() {
     setTechnologies(technologies.filter(t => t !== tech));
   };
 
+  const handleAddProject = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      //passar o token para liberar a rota
+      const response = await fetch("http://localhost:8080/projects/addprojects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name,
+          status,
+          repository,
+          location
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao adicionar projeto");
+      }
+
+      const data = await response.json();
+      console.log("TOKEN:", data.token);
+
+      // exemplo de armazenar token
+      localStorage.setItem("token", data.token);
+      document.cookie = `token=${data.token}; path=/;`;
+
+
+      // redirecionar
+      window.location.href = "/projects/myprojects";
+
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     <div>
       <Header/>
@@ -29,7 +73,7 @@ export default function AddProject() {
             <img src="/images/assets/back.png" />
           </Link>
 
-          {/* Project Name */}
+        
           <div className="ml-10 mt-5">
             <p className="text-green-500 font-mono ml-10 text-2xl">
               Project Name:
@@ -38,10 +82,12 @@ export default function AddProject() {
               type="text"
               className="bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono p-2 w-100 mt-2 ml-10"
               placeholder="Enter project name here..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          {/* Technologies Input */}
+        
           <div className="ml-10 mt-5">
             <p className="text-green-500 font-mono ml-10 text-2xl">
               Technologies
@@ -70,7 +116,7 @@ export default function AddProject() {
             </div>
           </div>
 
-          {/* Github Link */}
+        
           <div className="ml-10 mt-5">
             <p className="text-green-500 font-mono ml-10 text-2xl">
               Link Github:
@@ -79,10 +125,12 @@ export default function AddProject() {
               type="text"
               className="bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono p-2 w-100 mt-2 ml-10"
               placeholder="Enter project link here..."
+              value={repository}
+              onChange={(e) => setRepository(e.target.value)}
             />
           </div>
 
-          {/* Path PC */}
+        
           <div className="ml-10 mt-5">
             <p className="text-green-500 font-mono ml-10 text-2xl">
               Location Path:
@@ -91,31 +139,35 @@ export default function AddProject() {
               type="text"
               className="bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono p-2 w-100 mt-2 ml-10"
               placeholder="Enter project path here..."
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
 
-          {/* Save Button */}
           <div className="ml-10 mt-5">
-            <button className="w-100 bg-green-500 text-neutral-900 font-mono px-3 py-1 rounded-md hover:bg-green-600 transition-colors ml-10 mt-5 cursor-pointer">
-              Save Project
+            <button 
+              onClick={handleAddProject} 
+              className="w-100 bg-green-500 text-neutral-900 font-mono px-3 py-1 rounded-md hover:bg-green-600 transition-colors ml-10 mt-5 cursor-pointer">
+                Save Project
             </button>
           </div>
         </div>
 
-        {/* Right side: status + table */}
         <div className="mr-10">
           <div className="ml-10 mt-15">
             <p className="text-green-500 font-mono text-2xl">Status:</p>
-            <select className="w-100 mr-10 p-2 bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono cursor-pointer mt-2">
-              <option value="finished">Finished</option>
-              <option value="progress">In Progress</option>
-              <option value="paused">Paused</option>
-              <option value="thinking">Thinking</option>
-              <option value="canceled">Canceled</option>
+            <select 
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="w-100 mr-10 p-2 bg-neutral-800 text-green-500 border border-green-500 rounded-md font-mono cursor-pointer mt-2">
+                <option value="finished">Finished</option>
+                <option value="progress">In Progress</option>
+                <option value="paused">Paused</option>
+                <option value="thinking">Thinking</option>
+                <option value="canceled">Canceled</option>
             </select>
           </div>
 
-          {/* Technologies Table */}
           <div className="ml-10 mt-10 border-green-500 border-2 p-5 rounded-md w-100 max-h-80 overflow-auto">
             <table>
               <thead>
