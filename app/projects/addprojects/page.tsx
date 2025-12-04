@@ -29,7 +29,6 @@ export default function AddProject() {
     try {
       const token = localStorage.getItem("token");
 
-      //passar o token para liberar a rota
       const response = await fetch("http://localhost:8080/projects/addprojects", {
         method: "POST",
         headers: {
@@ -49,13 +48,7 @@ export default function AddProject() {
         throw new Error("Erro ao adicionar projeto");
       }
 
-      const data = await response.json();
-      console.log("TOKEN:", data.token);
-
-      // exemplo de armazenar token
-      localStorage.setItem("token", data.token);
-      document.cookie = `token=${data.token}; path=/;`;
-
+      alert("Projeto adicionado com sucesso!");
 
       // redirecionar
       window.location.href = "/projects/myprojects";

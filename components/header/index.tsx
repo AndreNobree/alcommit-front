@@ -1,8 +1,8 @@
 export default function Header() {
     return(
         <div className="bg-neutral-900 w-full h-full p-3 border-b border-green-500 flex items-center justify-between">
-                <div>
-                <h2 className="text-green-500 font-mono">AlCommit</h2>
+                <div className="flex">
+                    <img src="/images/assets/AlCommitLogo.png" className="w-10 h-10 "></img>
                 </div>
                 <div className="flex">
                 <button className="bg-green-500 text-neutral-900 font-mono px-3 py-1 rounded-md hover:bg-green-600 transition-colors mr-4 cursor-pointer">
